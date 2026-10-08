@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UyTop — Uy-joy ijara platformasi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #ffffff;
+      --bg-soft: #f8fafc;
+      --border: #e2e8f0;
+      --text: #1a1a1a;
+      --text-muted: #64748b;
+      --accent: #2563eb;
+      --accent-hover: #1d4ed8;
+      --accent-light: #eff6ff;
+      --card-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+      --radius: 10px;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+
+    .logo span { color: var(--text); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 14px;
+      font-weight: 500;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: background 0.15s;
+    }
+
+    .nav-links a:hover { background: var(--bg-soft); color: var(--text); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.15s;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+    .btn-primary:hover { background: var(--accent-hover); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--accent);
+      border: 1.5px solid var(--accent);
+    }
+    .btn-outline:hover { background: var(--accent-light); }
+
+    /* HERO */
+    .hero {
+      background: var(--bg-soft);
+      border-bottom: 1px solid var(--border);
+      padding: 56px 24px 40px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 36px;
+      font-weight: 700;
+      letter-spacing: -0.8px;
+      margin-bottom: 10px;
+      line-height: 1.2;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .hero p {
+      color: var(--text-muted);
+      font-size: 16px;
+      margin-bottom: 28px;
+    }
+
+    /* SEARCH BAR */
+    .search-bar {
+      display: flex;
+      max-width: 620px;
+      margin: 0 auto;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      background: white;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+    }
+
+    .search-bar input {
+      flex: 1;
+      border: none;
+      outline: none;
+      padding: 13px 16px;
+      font-size: 15px;
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+    }
+
+    .search-bar button {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 13px 22px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: background 0.15s;
+    }
+
+    .search-bar button:hover { background: var(--accent-hover); }
+
+    /* STATS */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 36px;
+      margin-top: 28px;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .stat span {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* FILTERS */
+    .filters-wrap {
+      border-bottom: 1px solid var(--border);
+      padding: 14px 24px;
+      background: var(--bg);
+    }
+
+    .filters {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .filter-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-right: 4px;
+    }
+
+    select {
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 7px 12px;
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background: white;
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.15s;
+      appearance: none;
+      padding-right: 28px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+    }
+
+    select:focus { border-color: var(--accent); }
+
+    .filter-btn-clear {
+      font-size: 13px;
+      color: var(--accent);
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      padding: 7px 10px;
+      border-radius: 6px;
+      transition: background 0.15s;
+    }
+
+    .filter-btn-clear:hover { background: var(--accent-light); }
+
+    /* MAIN CONTENT */
+    .main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 28px 24px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .section-header h2 {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .count-badge {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    /* GRID */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .grid { grid-template-columns: 1fr; } }
+
+    /* CARD */
+    .card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      cursor: pointer;
+      transition: box-shadow 0.15s, transform 0.15s;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .card:hover {
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      transform: translateY(-2px);
+    }
+
+    .card-img {
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+      background: var(--bg-soft);
+      display: block;
+      position: relative;
+    }
+
+    .card-img-placeholder {
+      width: 100%;
+      height: 190px;
+      background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+    }
+
+    .card-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: white;
+      border-radius: 6px;
+      padding: 3px 9px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent);
+      border: 1px solid var(--accent-light);
+    }
+
+    .card-img-wrap {
+      position: relative;
+    }
+
+    .card-body {
+      padding: 14px 16px 16px;
+    }
+
+    .card-price {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .card-price span {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .card-location {
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 10px;
+    }
+
+    .card-meta {
+      display: flex;
+      gap: 14px;
+      border-top: 1px solid var(--border);
+      padding-top: 10px;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .meta-item svg { flex-shrink: 0; }
+
+    /* EMPTY STATE */
+    .empty {
+      text-align: center;
+      padding: 64px 24px;
+      color: var(--text-muted);
+      grid-column: 1 / -1;
+    }
+
+    .empty-icon { font-size: 40px; margin-bottom: 12px; }
+    .empty h3 { font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+
+    /* MODAL */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: white;
+      border-radius: 14px;
+      width: 100%;
+      max-width: 560px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    }
+
+    .modal-header {
+      padding: 20px 24px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      background: white;
+      z-index: 1;
+    }
+
+    .modal-header h3 { font-size: 17px; font-weight: 700; }
+
+    .modal-close {
+      background: var(--bg-soft);
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      transition: background 0.15s;
+    }
+
+    .modal-close:hover { background: var(--border); }
+
+    .modal-body { padding: 24px; }
+
+    .modal-img {
+      width: 100%;
+      height: 220px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+
+    .modal-price {
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .modal-price span { font-size: 15px; font-weight: 500; color: var(--text-muted); }
+
+    .modal-title { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+    .modal-location { font-size: 14px; color: var(--text-muted); margin-bottom: 18px; }
+
+    .modal-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .modal-stat {
+      background: var(--bg-soft);
+      border-radius: 8px;
+      padding: 12px;
+      text-align: center;
+    }
+
+    .modal-stat .val { font-size: 18px; font-weight: 700; }
+    .modal-stat .lbl { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+    .modal-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .modal-contact {
+      background: var(--accent-light);
+      border-radius: 10px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: gap;
+      gap: 12px;
+    }
+
+    .modal-contact .contact-info p { font-size: 13px; color: var(--text-muted); }
+    .modal-contact .contact-info strong { font-size: 15px; }
+
+    /* ADD MODAL */
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: var(--text); }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.15s;
+      background: white;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--accent); }
+
+    .form-group textarea { resize: vertical; min-height: 80px; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 40px;
+    }
+
+    footer strong { color: var(--accent); }
+
+    .sort-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sort-bar label { font-size: 13px; color: var(--text-muted); }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" href="#">Uy<span>Top</span></a>
+  <div class="nav-links">
+    <a href="#">Ijara</a>
+    <a href="#">Sotish</a>
+    <a href="#">Yangiliklar</a>
+    <button class="btn btn-primary" onclick="openAddModal()">+ E'lon qo'shish</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>O'zbekistonda uy topish<br><em>oson va tez</em></h1>
+  <p>Minglab e'lonlar orasidan o'zingizga mos uyni toping</p>
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Shahar, tuman yoki ko'cha izlang..." />
+    <button onclick="applyFilters()">Qidirish</button>
+  </div>
+  <div class="stats">
+    <div class="stat"><strong id="totalCount">0</strong><span>E'lonlar</span></div>
+    <div class="stat"><strong>12</strong><span>Shahar</span></div>
+    <div class="stat"><strong>24/7</strong><span>Qo'llab-quvvatlash</span></div>
+  </div>
+</section>
+
+<!-- FILTERS -->
+<div class="filters-wrap">
+  <div class="filters">
+    <span class="filter-label">Filtr:</span>
+    <select id="filterCity" onchange="applyFilters()">
+      <option value="">Barcha shaharlar</option>
+      <option>Toshkent</option>
+      <option>Samarqand</option>
+      <option>Namangan</option>
+      <option>Andijon</option>
+      <option>Buxoro</option>
+      <option>Farg'ona</option>
+    </select>
+    <select id="filterRooms" onchange="applyFilters()">
+      <option value="">Xonalar soni</option>
+      <option value="1">1 xona</option>
+      <option value="2">2 xona</option>
+      <option value="3">3 xona</option>
+      <option value="4">4+ xona</option>
+    </select>
+    <select id="filterPrice" onchange="applyFilters()">
+      <option value="">Narx oralig'i</option>
+      <option value="low">1 — 3 mln so'm</option>
+      <option value="mid">3 — 6 mln so'm</option>
+      <option value="high">6 mln+ so'm</option>
+    </select>
+    <select id="filterType" onchange="applyFilters()">
+      <option value="">Tur</option>
+      <option>Kvartira</option>
+      <option>Uy</option>
+      <option>Ofis</option>
+    </select>
+    <button class="filter-btn-clear" onclick="clearFilters()">Tozalash</button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="section-header">
+    <h2>Barcha e'lonlar <span class="count-badge" id="countBadge"></span></h2>
+    <div class="sort-bar">
+      <label>Saralash:</label>
+      <select id="sortBy" onchange="applyFilters()">
+        <option value="new">Eng yangi</option>
+        <option value="cheap">Arzon avval</option>
+        <option value="expensive">Qimmat avval</option>
+      </select>
+    </div>
+  </div>
+  <div class="grid" id="listingGrid"></div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <strong>UyTop</strong> — O'zbekiston uy-joy ijara platformasi &copy; 2024
+</footer>
+
+<!-- DETAIL MODAL -->
+<div class="modal-overlay" id="detailModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="mTitle">—</h3>
+      <button class="modal-close" onclick="closeModal('detailModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-img" id="mEmoji"></div>
+      <div class="modal-price" id="mPrice"></div>
+      <div class="modal-title" id="mSubtitle"></div>
+      <div class="modal-location" id="mLocation"></div>
+      <div class="modal-stats">
+        <div class="modal-stat"><div class="val" id="mRooms"></div><div class="lbl">Xona</div></div>
+        <div class="modal-stat"><div class="val" id="mArea"></div><div class="lbl">Maydon (m²)</div></div>
+        <div class="modal-stat"><div class="val" id="mFloor"></div><div class="lbl">Qavat</div></div>
+      </div>
+      <p class="modal-desc" id="mDesc"></p>
+      <div class="modal-contact">
+        <div class="contact-info">
+          <p>Murojaat uchun</p>
+          <strong id="mPhone"></strong>
+        </div>
+        <a id="mCall" href="#" class="btn btn-primary">📞 Qo'ng'iroq</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ADD MODAL -->
+<div class="modal-overlay" id="addModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Yangi e'lon qo'shish</h3>
+      <button class="modal-close" onclick="closeModal('addModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>E'lon nomi</label>
+        <input type="text" id="fTitle" placeholder="Masalan: 2 xonali kvartira, Chilonzor" />
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Shahar</label>
+          <select id="fCity">
+            <option>Toshkent</option>
+            <option>Samarqand</option>
+            <option>Namangan</option>
+            <option>Andijon</option>
+            <option>Buxoro</option>
+            <option>Farg'ona</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Tuman / Ko'cha</label>
+          <input type="text" id="fDistrict" placeholder="Masalan: Yunusobod, Navoiy ko'ch." />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Narx (so'm)</label>
+          <input type="number" id="fPrice" placeholder="2500000" />
+        </div>
+        <div class="form-group">
+          <label>Xonalar soni</label>
+          <select id="fRooms">
+            <option value="1">1 xona</option>
+            <option value="2">2 xona</option>
+            <option value="3">3 xona</option>
+            <option value="4">4+ xona</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Maydon (m²)</label>
+          <input type="number" id="fArea" placeholder="55" />
+        </div>
+        <div class="form-group">
+          <label>Qavat</label>
+          <input type="text" id="fFloor" placeholder="3/9" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Tur</label>
+        <select id="fType">
+          <option>Kvartira</option>
+          <option>Uy</option>
+          <option>Ofis</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Tavsif</label>
+        <textarea id="fDesc" placeholder="Uy haqida qisqacha ma'lumot..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>Telefon raqam</label>
+        <input type="text" id="fPhone" placeholder="+998 90 123 45 67" />
+      </div>
+      <button class="btn btn-primary" style="width:100%;justify-content:center;padding:12px;" onclick="addListing()">E'lonni joylash</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const emojis = ['🏠','🏡','🏢','🏘️','🏗️','🛏️'];
+
+  let listings = [
+    { id:1, title:"2 xonali kvartira", city:"Toshkent", district:"Chilonzor tumani", price:3500000, rooms:2, area:62, floor:"5/9", type:"Kvartira", desc:"Yorqin, ta'mirli, mebelli kvartira. Oshxona jihozlangan. Uy hayvonlari ruxsat etilmaydi. 24 soatlik qorovul xizmati mavjud.", phone:"+998 90 123 45 67", emoji:"🏢", date: Date.now() - 86400000 },
+    { id:2, title:"3 xonali uy", city:"Samarqand", district:"Registon yaqini", price:5200000, rooms:3, area:110, floor:"—", type:"Uy", desc:"Hovlili, ko'chatli uy. Qulay joylashuv, transport yo'llari yaqin. Ikkita hammom, keng oshxona.", phone:"+998 91 234 56 78", emoji:"🏡", date: Date.now() - 172800000 },
+    { id:3, title:"1 xonali kvartira", city:"Toshkent", district:"Yunusobod, Navoiy ko'ch.", price:2100000, rooms:1, area:38, floor:"2/5", type:"Kvartira", desc:"Yangi ta'mir. Konditsioner, kir yuvish mashinasi mavjud. Avtobus bekatiga 3 daqiqa.", phone:"+998 93 345 67 89", emoji:"🏠", date: Date.now() - 3600000 },
+    { id:4, title:"Ofis xonasi", city:"Toshkent", district:"Shayxontohur, biz-markaz", price:8000000, rooms:1, area:45, floor:"3/10", type:"Ofis", desc:"Zamonaviy biznes-markazda ofis. Konditsioner, internet, resepshion. Hamkorlik uchun ideal.", phone:"+998 94 456 78 90", emoji:"🏢", date: Date.now() - 259200000 },
+    { id:5, title:"4 xonali uy", city:"Namangan", district:"Uychi mahallasi", price:4800000, rooms:4, area:160, floor:"—", type:"Uy", desc:"Keng hovlili uy. Meva daraxtlari bor. Garaj mavjud. Uy qo'shimcha imorat bilan birga.", phone:"+998 95 567 89 01", emoji:"🏘️", date: Date.now() - 345600000 },
+    { id:6, title:"2 xonali kvartira", city:"Andijon", district:"Asaka ko'chasi", price:2800000, rooms:2, area:54, floor:"7/12", type:"Kvartira", desc:"Lift mavjud, uy berkitilgan hovli ichida. Yangi bino, 2022-yilda qurilgan.", phone:"+998 96 678 90 12", emoji:"🏗️", date: Date.now() - 432000000 },
+  ];
+
+  let filtered = [...listings];
+
+  function formatPrice(p) {
+    if (p >= 1000000) return (p / 1000000).toFixed(1).replace('.0','') + ' mln so\'m';
+    return p.toLocaleString() + ' so\'m';
+  }
+
+  function renderCard(l) {
+    return `
+      <div class="card" onclick="openDetail(${l.id})">
+        <div class="card-img-wrap">
+          <div class="card-img-placeholder">${l.emoji}</div>
+          <span class="card-badge">${l.type}</span>
+        </div>
+        <div class="card-body">
+          <div class="card-price">${formatPrice(l.price)} <span>/ oy</span></div>
+          <div class="card-title">${l.title}</div>
+          <div class="card-location">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            ${l.city}, ${l.district}
+          </div>
+          <div class="card-meta">
+            <div class="meta-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+              ${l.rooms} xona
+            </div>
+            <div class="meta-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+              ${l.area} m²
+            </div>
+            <div class="meta-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><polyline points="17 11 12 6 7 11"/><polyline points="17 18 12 13 7 18"/></svg>
+              ${l.floor !== '—' ? l.floor + ' qavat' : 'Uy'}
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function render() {
+    const grid = document.getElementById('listingGrid');
+    document.getElementById('totalCount').textContent = listings.length;
+    document.getElementById('countBadge').textContent = `(${filtered.length} ta)`;
+
+    if (filtered.length === 0) {
+      grid.innerHTML = `<div class="empty"><div class="empty-icon">🔍</div><h3>E'lon topilmadi</h3><p>Filtrlarni o'zgartirib ko'ring</p></div>`;
+      return;
+    }
+
+    grid.innerHTML = filtered.map(renderCard).join('');
+  }
+
+  function applyFilters() {
+    const city = document.getElementById('filterCity').value;
+    const rooms = document.getElementById('filterRooms').value;
+    const price = document.getElementById('filterPrice').value;
+    const type = document.getElementById('filterType').value;
+    const search = document.getElementById('searchInput').value.toLowerCase();
+    const sort = document.getElementById('sortBy').value;
+
+    filtered = listings.filter(l => {
+      if (city && l.city !== city) return false;
+      if (rooms) {
+        if (rooms === '4' && l.rooms < 4) return false;
+        if (rooms !== '4' && l.rooms !== parseInt(rooms)) return false;
+      }
+      if (price === 'low' && l.price > 3000000) return false;
+      if (price === 'mid' && (l.price < 3000000 || l.price > 6000000)) return false;
+      if (price === 'high' && l.price < 6000000) return false;
+      if (type && l.type !== type) return false;
+      if (search && !l.city.toLowerCase().includes(search) && !l.district.toLowerCase().includes(search) && !l.title.toLowerCase().includes(search)) return false;
+      return true;
+    });
+
+    if (sort === 'cheap') filtered.sort((a,b) => a.price - b.price);
+    else if (sort === 'expensive') filtered.sort((a,b) => b.price - a.price);
+    else filtered.sort((a,b) => b.date - a.date);
+
+    render();
+  }
+
+  function clearFilters() {
+    document.getElementById('filterCity').value = '';
+    document.getElementById('filterRooms').value = '';
+    document.getElementById('filterPrice').value = '';
+    document.getElementById('filterType').value = '';
+    document.getElementById('searchInput').value = '';
+    document.getElementById('sortBy').value = 'new';
+    applyFilters();
+  }
+
+  function openDetail(id) {
+    const l = listings.find(x => x.id === id);
+    if (!l) return;
+    document.getElementById('mTitle').textContent = l.title;
+    document.getElementById('mEmoji').textContent = l.emoji;
+    document.getElementById('mPrice').innerHTML = formatPrice(l.price) + ' <span>/ oy</span>';
+    document.getElementById('mSubtitle').textContent = l.title;
+    document.getElementById('mLocation').textContent = `📍 ${l.city}, ${l.district}`;
+    document.getElementById('mRooms').textContent = l.rooms;
+    document.getElementById('mArea').textContent = l.area;
+    document.getElementById('mFloor').textContent = l.floor;
+    document.getElementById('mDesc').textContent = l.desc;
+    document.getElementById('mPhone').textContent = l.phone;
+    document.getElementById('mCall').href = 'tel:' + l.phone.replace(/\s/g,'');
+    document.getElementById('detailModal').classList.add('open');
+  }
+
+  function openAddModal() {
+    document.getElementById('addModal').classList.add('open');
+  }
+
+  function closeModal(id) {
+    document.getElementById(id).classList.remove('open');
+  }
+
+  document.querySelectorAll('.modal-overlay').forEach(el => {
+    el.addEventListener('click', e => { if (e.target === el) el.classList.remove('open'); });
+  });
+
+  function addListing() {
+    const title = document.getElementById('fTitle').value.trim();
+    const city = document.getElementById('fCity').value;
+    const district = document.getElementById('fDistrict').value.trim();
+    const price = parseInt(document.getElementById('fPrice').value);
+    const rooms = parseInt(document.getElementById('fRooms').value);
+    const area = parseInt(document.getElementById('fArea').value);
+    const floor = document.getElementById('fFloor').value.trim() || '—';
+    const type = document.getElementById('fType').value;
+    const desc = document.getElementById('fDesc').value.trim();
+    const phone = document.getElementById('fPhone').value.trim();
+
+    if (!title || !district || !price || !area || !phone) {
+      alert("Iltimos, barcha majburiy maydonlarni to'ldiring.");
+      return;
+    }
+
+    const newId = listings.length ? Math.max(...listings.map(l => l.id)) + 1 : 1;
+    listings.unshift({ id: newId, title, city, district, price, rooms, area, floor, type, desc, phone, emoji: emojis[Math.floor(Math.random() * emojis.length)], date: Date.now() });
+
+    closeModal('addModal');
+    ['fTitle','fDistrict','fPrice','fArea','fFloor','fDesc','fPhone'].forEach(id => document.getElementById(id).value = '');
+
+    applyFilters();
+  }
+
+  document.getElementById('searchInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') applyFilters();
+  });
+
+  applyFilters();
+</script>
+</body>
+</html>
